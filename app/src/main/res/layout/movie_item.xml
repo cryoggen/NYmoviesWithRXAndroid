@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="multiMedia"
-            type="com.cryoggen.domain.models.MultiMedia" />
+            name="movie"
+            type="com.cryoggen.domain.models.Movie" />
 
     </data>
 
@@ -78,6 +78,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="this is a vedeo @android:string/fingerprint_icon_content_description" />
 
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/video_thumbnail"
+                app:layout_constraintEnd_toEndOf="@+id/video_thumbnail"
+                app:layout_constraintStart_toStartOf="@+id/video_thumbnail"
+                app:layout_constraintTop_toTopOf="@+id/video_thumbnail" />
+
             <ImageView
                 android:id="@+id/video_thumbnail"
                 android:layout_width="0dp"
@@ -85,7 +95,7 @@
                 android:adjustViewBounds="false"
                 android:cropToPadding="false"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{multiMedia.src}"
+                app:imageUrl="@{movie.src}"
                 app:layout_constraintDimensionRatio="h,4:3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

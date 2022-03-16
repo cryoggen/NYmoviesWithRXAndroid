@@ -8,16 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cryoggen.cleanarchitecture.presentation.MoviesListViewModelFactory
 
 import com.example.nymovies.R
 
 import com.example.nymovies.app.appComponent
 import com.example.nymovies.databinding.FragmentMoviesListBinding
-
+import com.example.nymovies.presentation.viewmodel.MoviesListViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import java.util.*
+import javax.inject.Inject
 
 
 class MoviesListFragment : Fragment() {
+    @Inject
+    lateinit var vmFactory: MoviesListViewModelFactory
+    private lateinit var vm: MoviesListViewModel
+
     val component by lazy { requireContext().applicationContext.appComponent }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,13 +56,19 @@ class MoviesListFragment : Fragment() {
             container,
             false
         )
+        vm = ViewModelProvider(this, vmFactory).get(MoviesListViewModel::class.java)
 
-        // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
-        // Inflate the layout for this fragment
 
+        val adapter = component.moviesListAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = component.moviesListAdapter
+        binding.recyclerView.adapter = adapter
+
+        lifecycle.coroutineScope.launch {
+         vm.getMovies().collect {
+             adapter.movies = it
+         }
+        }
 
         return binding.root
     }

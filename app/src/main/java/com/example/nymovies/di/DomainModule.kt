@@ -1,7 +1,9 @@
 package com.example.nymovies.di
 
 
+import com.cryoggen.domain.repository.MoviesRepository
 import com.cryoggen.domain.usecase.GetListReviewsUseCase
+import com.cryoggen.domain.usecase.RefreshDataUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,13 +11,15 @@ import dagger.Provides
 class DomainModule {
 
     @Provides
-    fun provideGetListReviewsUseCase(): GetListReviewsUseCase {
-        return GetListReviewsUseCase()
+    fun provideGetListReviewsUseCase(moviesRepository: MoviesRepository): GetListReviewsUseCase {
+        return GetListReviewsUseCase(moviesRepository)
     }
 
-//    @Provides
-//    fun provideSaveUserNameUseCase(userRepository: UserRepository): SaveUserNameUseCase {
-//        return SaveUserNameUseCase(userRepository = userRepository)
-//    }
+
+    @Provides
+    fun provideRefreshDataUseCase(moviesRepository: MoviesRepository): RefreshDataUseCase {
+        return RefreshDataUseCase(moviesRepository)
+    }
+
 
 }

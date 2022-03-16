@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.cryoggen.data.source.models.remote.MultiMedia
+import com.cryoggen.domain.models.Movie
 import com.example.nymovies.R
 import com.example.nymovies.databinding.MovieItemBinding
 
@@ -12,7 +14,7 @@ import com.example.nymovies.databinding.MovieItemBinding
 class MoviesListAdapter() : RecyclerView.Adapter<MovieViewHolder>() {
 
 
-    var movies: List<com.cryoggen.domain.models.Movie> = emptyList()
+    var movies: List<Movie> = emptyList()
         set(value) {
             field = value
 
@@ -34,7 +36,7 @@ class MoviesListAdapter() : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.viewDataBinding.also {
-            it.multiMedia = movies[position].multiMedia
+            it.movie = movies[position]
             it.title.text = movies[position].displayTitle
             it.description.text = movies[position].summaryShort
         }

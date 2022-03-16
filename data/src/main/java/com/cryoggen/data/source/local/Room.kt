@@ -6,14 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.RoomDatabase
 import com.cryoggen.data.source.models.local.DatabaseMovie
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MoviesDao {
     @Query("select * from DatabaseMovie")
-    fun getVideos(): LiveData<List<DatabaseMovie>>
+     fun getMovies(): Flow<List<DatabaseMovie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg videos: DatabaseMovie)
+    fun insertAll( movies: List<DatabaseMovie>)
 }
 
 @Database(entities = [DatabaseMovie::class], version = 1)

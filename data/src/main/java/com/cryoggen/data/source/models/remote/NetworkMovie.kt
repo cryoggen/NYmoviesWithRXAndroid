@@ -3,33 +3,34 @@ package com.cryoggen.data.source.models.remote
 import com.cryoggen.data.source.models.local.DatabaseMovie
 import com.cryoggen.domain.models.Movie
 
-data class NetworkVideoContainer(val movies: List<Review>)
+data class NetworkVideoContainer(val results: List<Review>)
 
 data class Review(
-    val displayTitle: String,
-    val summaryShort: String,
-    val multiMedia: MultiMedia
+    val display_title: String = "",
+    val summary_short: String = "",
+    val multimedia: MultiMedia = MultiMedia("")
 )
 
-data class MultiMedia(val src: String)
+data class MultiMedia(val src: String = "")
 
 
 fun NetworkVideoContainer.asDomainModel(): List<Movie> {
-    return movies.map {
+    return results.map {
         Movie(
-            displayTitle = it.displayTitle,
-            summaryShort = it.summaryShort,
-            src = it.multiMedia.src,
+            displayTitle = it.display_title,
+            summaryShort = it.summary_short,
+            src = it.multimedia.src,
         )
+
     }
 }
 
-fun NetworkVideoContainer.asDatabaseModel(): Array<DatabaseMovie> {
-    return movies.map {
+fun NetworkVideoContainer.asDatabaseModel(): List<DatabaseMovie> {
+    return results.map {
         DatabaseMovie(
-            displayTitle = it.displayTitle,
-            summaryShort = it.summaryShort,
-            src = it.multiMedia.src,
+            displayTitle = it.display_title,
+            summaryShort = it.summary_short,
+            src = it.multimedia.src,
         )
-    }.toTypedArray()
+    }
 }
