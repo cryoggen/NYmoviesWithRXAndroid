@@ -16,18 +16,21 @@ import javax.inject.Singleton
 class DataModule {
 
     @Provides
-    fun provideMoviesLocalDataSource(moviesDatabase:MoviesDatabase): MoviesLocalDataSource {
+    fun provideMoviesLocalDataSource(moviesDatabase: MoviesDatabase): MoviesLocalDataSource {
         return MoviesLocalDataSourceImpl(moviesDatabase)
     }
 
     @Provides
-    fun provideMoviesNetworkDataSource(moviesService:MoviesService): MoviesNetworkDataSource {
+    fun provideMoviesNetworkDataSource(moviesService: MoviesService): MoviesNetworkDataSource {
         return MoviesNetworkDataSourceImpl(moviesService)
     }
 
     @Provides
     @Singleton
-    fun provideMoviesRepository(moviesLocalDataSource: MoviesLocalDataSource, moviesNetworkDataSource: MoviesNetworkDataSource): MoviesRepository {
+    fun provideMoviesRepository(
+        moviesLocalDataSource: MoviesLocalDataSource,
+        moviesNetworkDataSource: MoviesNetworkDataSource
+    ): MoviesRepository {
         return MoviesRepositoryImpl(
             moviesLocalDataSource = moviesLocalDataSource,
             moviesNetworkDataSource = moviesNetworkDataSource

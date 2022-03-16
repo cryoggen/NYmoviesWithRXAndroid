@@ -1,13 +1,15 @@
-package com.cryoggen.cleanarchitecture.presentation
+package com.example.nymovies.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cryoggen.domain.usecase.GetListReviewsUseCase
 import com.cryoggen.domain.usecase.RefreshDataUseCase
-import com.example.nymovies.presentation.viewmodel.MoviesListViewModel
 
 
-class MoviesListViewModelFactory(val getListReviewsUseCase: GetListReviewsUseCase, val refreshDataUseCase: RefreshDataUseCase) : ViewModelProvider.Factory {
+class MoviesListViewModelFactory(
+    private val getListReviewsUseCase: GetListReviewsUseCase,
+    private val refreshDataUseCase: RefreshDataUseCase
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MoviesListViewModel(

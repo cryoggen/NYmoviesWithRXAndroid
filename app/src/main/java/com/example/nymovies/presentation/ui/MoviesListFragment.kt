@@ -6,21 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cryoggen.cleanarchitecture.presentation.MoviesListViewModelFactory
-
 import com.example.nymovies.R
-
 import com.example.nymovies.app.appComponent
 import com.example.nymovies.databinding.FragmentMoviesListBinding
 import com.example.nymovies.presentation.viewmodel.MoviesListViewModel
+import com.example.nymovies.presentation.viewmodel.MoviesListViewModelFactory
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 
@@ -29,20 +25,11 @@ class MoviesListFragment : Fragment() {
     lateinit var vmFactory: MoviesListViewModelFactory
     private lateinit var vm: MoviesListViewModel
 
-    val component by lazy { requireContext().applicationContext.appComponent }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val component by lazy { requireContext().applicationContext.appComponent }
 
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
     }
 
@@ -56,7 +43,7 @@ class MoviesListFragment : Fragment() {
             container,
             false
         )
-        vm = ViewModelProvider(this, vmFactory).get(MoviesListViewModel::class.java)
+        vm = ViewModelProvider(this, vmFactory)[MoviesListViewModel::class.java]
 
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -65,9 +52,9 @@ class MoviesListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         lifecycle.coroutineScope.launch {
-         vm.getMovies().collect {
-             adapter.movies = it
-         }
+            vm.getMovies().collect {
+                adapter.movies = it
+            }
         }
 
         return binding.root

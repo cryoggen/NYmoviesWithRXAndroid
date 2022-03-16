@@ -1,10 +1,10 @@
 package com.example.nymovies.di
 
 import android.content.Context
-import com.cryoggen.cleanarchitecture.presentation.MoviesListViewModelFactory
 import com.cryoggen.domain.usecase.GetListReviewsUseCase
 import com.cryoggen.domain.usecase.RefreshDataUseCase
 import com.example.nymovies.presentation.adapters.MoviesListAdapter
+import com.example.nymovies.presentation.viewmodel.MoviesListViewModelFactory
 import dagger.Module
 import dagger.Provides
 
@@ -25,7 +25,7 @@ class AppModule(val context: Context) {
     @Provides
     fun provideMoviesListViewModelFactory(
         getListReviewsUseCase: GetListReviewsUseCase, refreshDataUseCase: RefreshDataUseCase
-): MoviesListViewModelFactory {
+    ): MoviesListViewModelFactory {
         return MoviesListViewModelFactory(
             getListReviewsUseCase = getListReviewsUseCase, refreshDataUseCase = refreshDataUseCase
         )

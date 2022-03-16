@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface MoviesLocalDataSource {
-     fun getMovies(): Flow<List<Movie>>
-    suspend fun saveMovies(movies:List<DatabaseMovie>)
+    fun getMovies(): Flow<List<Movie>>
+    suspend fun saveMovies(movies: List<DatabaseMovie>)
 }

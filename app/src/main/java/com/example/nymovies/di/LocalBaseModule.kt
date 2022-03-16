@@ -12,7 +12,7 @@ class LocalBaseModule {
 
     @Provides
     @Singleton
-    fun provideDataBase(context:Context): MoviesDatabase {
+    fun provideDataBase(context: Context): MoviesDatabase {
         return getDatabase(context)
     }
 

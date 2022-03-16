@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.cryoggen.data.source.models.remote.MultiMedia
 import com.cryoggen.domain.models.Movie
 import com.example.nymovies.R
 import com.example.nymovies.databinding.MovieItemBinding
 
 
-class MoviesListAdapter() : RecyclerView.Adapter<MovieViewHolder>() {
+class MoviesListAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
 
     var movies: List<Movie> = emptyList()
@@ -27,7 +26,8 @@ class MoviesListAdapter() : RecyclerView.Adapter<MovieViewHolder>() {
             LayoutInflater.from(parent.context),
             MovieViewHolder.LAYOUT,
             parent,
-            false)
+            false
+        )
         return MovieViewHolder(movieItemBinding)
     }
 

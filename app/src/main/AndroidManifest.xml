@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nymovies">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -11,14 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NYmovies">
         <activity
-            android:name=".presentation.ui.MainActivity"
-            android:exported="true">
+            android:name=".presentation.ui.SplashActivity"
+            android:theme="@style/Theme.NYmoviesSplash"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".presentation.ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.NYmovies">
+        </activity>
+
     </application>
 
 </manifest>
