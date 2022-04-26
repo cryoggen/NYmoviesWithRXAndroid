@@ -16,6 +16,7 @@ import com.example.nymovies.databinding.FragmentMoviesListBinding
 import com.example.nymovies.presentation.viewmodel.MoviesListViewModel
 import com.example.nymovies.presentation.viewmodel.MoviesListViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,7 +27,8 @@ class MoviesListFragment : Fragment() {
     @Inject
     lateinit var vmFactory: MoviesListViewModelFactory
     private lateinit var vm: MoviesListViewModel
-
+    private var disposableMovies: Disposable? = null
+    private var disposableRefreshDatabase: Disposable? = null
     private val component by lazy { requireContext().applicationContext.appComponent }
 
     override fun onAttach(context: Context) {
@@ -53,12 +55,18 @@ class MoviesListFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
 
-            vm.getMovies()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { adapter.movies = it }
-
+        disposableMovies = vm.getMovies()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { adapter.movies = it }
+        disposableRefreshDatabase = vm.refreshData()
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposableMovies?.dispose()
+        disposableRefreshDatabase?.dispose()
     }
 
 

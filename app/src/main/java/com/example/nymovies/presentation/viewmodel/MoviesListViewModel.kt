@@ -15,8 +15,9 @@ class MoviesListViewModel(
     private val refreshDataUseCase: RefreshDataUseCase
 ) : ViewModel() {
     fun getMovies(): Observable<List<Movie>> = getListReviewsUseCase.execute()
+    fun refreshData() = refreshDataUseCase.execute()
 
     init {
-            refreshDataUseCase.execute()
+        refreshData()
     }
 }
