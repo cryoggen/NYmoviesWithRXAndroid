@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.room.*
 import androidx.room.RoomDatabase
 import com.cryoggen.data.source.models.local.DatabaseMovie
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.Flowable
+import io.reactivex.Observable
 
 @Dao
 interface MoviesDao {
     @Query("select * from DatabaseMovie")
-    fun getMovies(): Flow<List<DatabaseMovie>>
+    fun getMovies(): Observable<List<DatabaseMovie>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(movies: List<DatabaseMovie>)

@@ -15,6 +15,8 @@ import com.example.nymovies.app.appComponent
 import com.example.nymovies.databinding.FragmentMoviesListBinding
 import com.example.nymovies.presentation.viewmodel.MoviesListViewModel
 import com.example.nymovies.presentation.viewmodel.MoviesListViewModelFactory
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -51,11 +53,10 @@ class MoviesListFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
 
-        lifecycle.coroutineScope.launch {
-            vm.getMovies().collect {
-                adapter.movies = it
-            }
-        }
+            vm.getMovies()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { adapter.movies = it }
 
         return binding.root
     }

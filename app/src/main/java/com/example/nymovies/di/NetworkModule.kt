@@ -1,6 +1,7 @@
 package com.example.nymovies.di
 
 import com.cryoggen.data.source.remote.MoviesService
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -26,6 +27,7 @@ class NetworkModule {
     fun provideNYTimesAPI(moshi: Moshi): MoviesService {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(BASE_URL)
             .build()
         return retrofit.create(MoviesService::class.java)

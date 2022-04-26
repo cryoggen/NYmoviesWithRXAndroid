@@ -1,7 +1,8 @@
 package com.cryoggen.data.source.remote
 
 import com.cryoggen.data.source.models.remote.NetworkVideoContainer
+import io.reactivex.Observable
 
 interface MoviesNetworkDataSource {
-    suspend fun getMovies(): NetworkVideoContainer
+      fun getMovies(): Observable<NetworkVideoContainer>
 }
